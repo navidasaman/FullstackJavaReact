@@ -1,8 +1,8 @@
 package com.navidasaman.system.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired; // To be able to automaitaclly inject
 import org.springframework.stereotype.Service;
 
 import com.navidasaman.system.model.Employee;
@@ -11,8 +11,11 @@ import com.navidasaman.system.repository.EmployeeRepository;
 // Class EmployeeServiceImplementation implements the interface named EmployeeService and annoted with that it is a Service
 @Service 
 public class EmployeeServiceImplementation implements EmployeeService {
-	@Autowired
-	private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeServiceImplementation(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 	
 	// To override the method from the interface
 	@Override
@@ -26,4 +29,11 @@ public class EmployeeServiceImplementation implements EmployeeService {
 	public List<Employee> retrieveEmployees() {
 		return employeeRepository.findAll();
 	}
+
+    @Override
+    public Employee getEmployeeId(Long id) {
+        // Implementation to retrieve employee by ID from the database
+        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+        return employeeOptional.orElse(null);
+    }
 }

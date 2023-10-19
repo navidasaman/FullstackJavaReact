@@ -1,7 +1,9 @@
 package com.navidasaman.system.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,5 +38,27 @@ public class EmployeeController {
 	public List<Employee> retrieveEmployees() {
 		return employeeService.retrieveEmployees();
 	}
+	
+	@PutMapping("/put/{id}")
+    public String editEmployee(@PathVariable Long id, @RequestBody Employee employeeData) {
+        Employee employee = employeeService.getEmployeeId(id);
+
+        if (employee != null) {
+            // Update the employee data
+            employee.setName(employeeData.getName());
+            employee.setAge(employeeData.getAge());
+            employee.setDepartment(employeeData.getDepartment());
+            employee.setSalary(employeeData.getSalary());
+            employee.setOccupation(employeeData.getOccupation());
+            employee.setSkills(employeeData.getSkills());
+
+            // Save the updated employee
+            employeeService.insertEmployee(employee);
+
+            return "Employee data updated successfully";
+        } else {
+            return "Employee not found";
+        }
+    }
 
 }
