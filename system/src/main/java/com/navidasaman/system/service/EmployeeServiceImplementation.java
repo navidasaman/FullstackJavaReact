@@ -36,4 +36,10 @@ public class EmployeeServiceImplementation implements EmployeeService {
         Optional<Employee> employeeOptional = employeeRepository.findById(id);
         return employeeOptional.orElse(null);
     }
+    
+    // To delete employee by their ID
+    @Override
+    public void deleteEmployee(Long id) {
+        employeeRepository.deleteById(id);
+    }
 }

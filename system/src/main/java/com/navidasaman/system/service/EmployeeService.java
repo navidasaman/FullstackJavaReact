@@ -16,5 +16,8 @@ public interface EmployeeService {
 	
 	// To edit employees
     public Employee getEmployeeId(Long id);
+    
+    // To delete an employee by ID
+    public void deleteEmployee(Long id);
 
 }
