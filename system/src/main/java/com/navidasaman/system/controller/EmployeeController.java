@@ -1,5 +1,6 @@
 package com.navidasaman.system.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.navidasaman.system.model.Employee;
 import com.navidasaman.system.service.EmployeeService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired; // To be able to automaitaclly inject
 
@@ -29,5 +32,9 @@ public class EmployeeController {
 		return "Employee successfully added to database";
 	}
 	
+	@GetMapping("/get")
+	public List<Employee> retrieveEmployees() {
+		return employeeService.retrieveEmployees();
+	}
 
 }
