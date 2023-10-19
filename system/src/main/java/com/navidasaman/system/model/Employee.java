@@ -2,16 +2,17 @@ package com.navidasaman.system.model; // Model package will contain all entities
 
 // javax.persistence.Entity annotation is used to declare a class as an entity which represents a row in a db table in a relational database. 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 
-@Entity //  indicating that it is an entity to be persisted.
+//indicating that it is an entity to be persisted.
+@Entity 
 public class Employee {
 		
 	    @Id // "@Id" annotation is used to mark the "id" field as the primary key of the entity.
-	    @GeneratedValue(strategy = GenerationType.IDENTITY) // to auto-increment id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY) // to auto-increment value in db
 	    private Long id;
 	    private String name;
 	    private int age;
