@@ -23,7 +23,7 @@ const Addform: React.FC = () => {
 	const handleSubmit = (e: any) => {
 		e.preventDefault()
 		const employee = { name, age, occupation, department, salary, skills }
-		fetch("http://localhost:8080/employee/add", {
+		fetch(process.env.REACT_APP_API_URL_REGISTER_EMPLOYEE_ENDPOINT as string, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(employee)
@@ -37,12 +37,18 @@ const Addform: React.FC = () => {
 
 	// Fetch data through HTTP GET request to the specified endpoint
 	useEffect(() => {
-		fetch('http://localhost:8080/employee/get')
+		fetch(process.env.REACT_APP_API_URL_RETRIEVE_EMPLOYEES_ENDPOINT as string)
 			.then(res => res.json())
 			.then((result) => {
 				setEmployees(result);
 			})
 	}, [])
+
+	useEffect(() => {
+		console.log(process.env.REACT_APP_API_URL_RETRIEVE_EMPLOYEES_ENDPOINT)
+		
+	}, [])
+
 
 	return (
 		<div className="w-screen h-4/5 flex flex-row items-center justify-center">
