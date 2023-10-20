@@ -45,9 +45,9 @@ const Addform: React.FC = () => {
 	}, [])
 
 	return (
-		<div className="w-screen flex flex-row items-center justify-center">
-			<form onSubmit={handleSubmit} className="w-1/2 h-3/5  bg-gradient-to-r from-teal-500 to-indigo-500 shadow-lg rounded px-4 pt-6 pb-8 mb-4 m-5">
-				<h1 className="text-2xl font-bold text-gray-800 p-10">Add Employee</h1>
+		<div className="w-screen h-4/5 flex flex-row items-center justify-center">
+			<form onSubmit={handleSubmit} className="w-1/2 h-full bg-gradient-to-r from-teal-500 to-indigo-500 shadow-lg rounded px-4 pt-6 pb-8 mb-4 m-5">
+				<h1 className="text-2xl font-bold text-gray-800 pb-10 text-center">Add Employee</h1>
 				<div className="mb-4">
 					<input
 						type="text"
@@ -127,8 +127,8 @@ const Addform: React.FC = () => {
 			</form>
 
 			{/* maps through employees array */}
-			<div className="w-1/2 h-3/5 bg-gradient-to-r from-teal-500 to-indigo-500 shadow-lg rounded px-4 pt-6 pb-8 mb-4 m-5 overflow-y-auto">
-				<h1 className="text-2xl font-bold text-gray-800 p-10">Employee Registry</h1>
+			<div className="w-1/2 h-full bg-gradient-to-r from-teal-500 to-indigo-500 shadow-lg rounded px-4 pt-6 pb-8 mb-4 m-5 overflow-y-auto">
+				<h1 className="text-2xl font-bold text-center text-gray-800 pb-10">Employee Registry</h1>
 				{employees.map((employee) => (
 					<div key={employee.id} className='bg-slate-100 rounded-md p-5 mb-2'>
 						<h2 className='font-bold'>• {employee.name} •</h2>
