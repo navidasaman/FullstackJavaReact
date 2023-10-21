@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import {BsXLg} from 'react-icons/bs'
 
 interface Employee {
 	id: number;
@@ -30,6 +31,7 @@ const Addform: React.FC = () => {
 
 		}).then(() => {
 			console.log("New employee successfully added!")
+			window.location.reload();
 		}).catch((error) => {
 			console.error('Error adding employee:', error);
 		});
@@ -44,11 +46,21 @@ const Addform: React.FC = () => {
 			})
 	}, [])
 
-	useEffect(() => {
-		console.log(process.env.REACT_APP_API_URL_RETRIEVE_EMPLOYEES_ENDPOINT)
-		
-	}, [])
-
+	const handleDelete = (id: number) => {
+		fetch(`${process.env.REACT_APP_API_URL_DELETE_EMPLOYEE_ENDPOINT}/${id}`, {
+			method: "DELETE",
+			headers: { "Content-Type": "application/json" },
+		  })
+			.then(() => {
+			  console.log("Employee successfully deleted!");
+			  // Update the employee list after successful deletion
+			  setEmployees(employees.filter((employee) => employee.id !== id));
+			})
+			.catch((error) => {
+			  console.error("Error deleting employee:", error);
+			});
+		};
+	
 
 	return (
 		<div className="w-screen h-4/5 flex flex-row items-center justify-center">
@@ -137,7 +149,8 @@ const Addform: React.FC = () => {
 				<h1 className="text-2xl font-bold text-center text-gray-800 pb-10">Employee Registry</h1>
 				{employees.map((employee) => (
 					<div key={employee.id} className='bg-slate-100 rounded-md p-5 mb-2'>
-						<h2 className='font-bold'>• {employee.name} •</h2>
+						<h2 className='font-bold flex items-center justify-between'>• {employee.name} • <BsXLg onClick={() => handleDelete(employee.id)} className="text-red-600 font-extrabold cursor-pointer" /> </h2>
+						<p>ID: {employee.id}</p>
 						<p>Age: {employee.age}</p>
 						<p>Occupation: {employee.occupation}</p>
 						<p>Department: {employee.department}</p>
