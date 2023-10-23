@@ -19,5 +19,8 @@ public interface EmployeeService {
     
     // To delete an employee by ID
     public void deleteEmployee(Long id);
+    
+    // To search for employees
+	public List<Employee> searchEmployees(String name);
 
 }
