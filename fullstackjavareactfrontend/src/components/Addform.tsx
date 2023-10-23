@@ -29,66 +29,65 @@ const Addform: React.FC = () => {
 	const [editSkills, setEditSkills] = useState('');
 	const [showModal, setShowModal] = useState(false);
 
-	const handleSubmit = (e: any) => {
-		e.preventDefault()
-		const employee = { name, age, occupation, department, salary, skills }
-		fetch(process.env.REACT_APP_API_URL_REGISTER_EMPLOYEE_ENDPOINT as string, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(employee)
-
-		}).then(() => {
-			console.log("New employee successfully added!")
-			window.location.reload();
-		}).catch((error) => {
+	const handleSubmit = async (e: any) => {
+		e.preventDefault();
+		const employee = { name, age, occupation, department, salary, skills };
+		try {
+			const response = await fetch(`${process.env.REACT_APP_API_URL_REGISTER_EMPLOYEE_ENDPOINT}`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(employee)
+			});
+			if (response.ok) {
+				console.log("New employee successfully added!");
+				window.location.reload();
+			} else {
+				throw new Error("Error adding employee");
+			}
+		} catch (error) {
 			console.error('Error adding employee:', error);
-		});
+		}
 	};
 
-	useEffect(() => {
-		fetch(process.env.REACT_APP_API_URL_RETRIEVE_EMPLOYEES_ENDPOINT as string)
-			.then(res => res.json())
-			.then((result) => {
-				setEmployees(result);
-			})
+	useEffect(() => { 
+		const fetchData = async () => { 
+			try { 
+				const response = await fetch( process.env.REACT_APP_API_URL_RETRIEVE_EMPLOYEES_ENDPOINT as string ); 
+				const result = await response.json(); 
+				setEmployees(result); } 
+			catch (error) { 
+				console.error("Error fetching employees:", error); 
+			} 
+		}; 
+			fetchData(); 
 	}, []);
-
-	const handleDelete = (id: number) => {
-		fetch(`${process.env.REACT_APP_API_URL_DELETE_EMPLOYEE_ENDPOINT}/${id}`, {
-			method: "DELETE",
-			headers: { "Content-Type": "application/json" },
-		})
-			.then(() => {
-				console.log("Employee successfully deleted!");
-				// Update the employee list after successful deletion
-				setEmployees(employees.filter((employee) => employee.id !== id));
-			})
-			.catch((error) => {
-				console.error("Error deleting employee:", error);
-			});
+	
+	const handleDelete = async (id: number) => { 
+		try { 
+			await fetch(`${process.env.REACT_APP_API_URL_DELETE_EMPLOYEE_ENDPOINT}/${id}`, { 
+				method: "DELETE", 
+				headers: { "Content-Type": "application/json" }, 
+			}); console.log("Employee successfully deleted!"); 
+			// Update the employee list after successful deletion 
+			setEmployees(employees.filter((employee) => employee.id !== id)); 
+		} catch (error) { 
+			console.error("Error deleting employee:", error); 
+		} 
 	};
 
-	const handleEdit = (id: number) => {
-		const editedEmployee = {
-			name: editName,
-			age: editAge,
-			occupation: editOccupation,
-			department: editDepartment,
-			salary: editSalary,
-			skills: editSkills
-		};
-		setShowModal(true);
-		fetch(`${process.env.REACT_APP_API_URL_EDIT_EMPLOYEE_ENDPOINT}/${id}`, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(editedEmployee)
-		})
-			.then(() => {
-				alert("After employee has been edited and save button been pressed, please press close. Remember, all fields must be filled correctly before saving.")
-			})
-			.catch((error) => {
-				console.error("Error updating employee:", error);
-			});
+	const handleEdit = async (id: number) => { 
+		const editedEmployee = { name: editName, age: editAge, occupation: editOccupation, department: editDepartment, salary: editSalary, skills: editSkills, }; 
+		setShowModal(true); 
+		try { 
+			await fetch(`${process.env.REACT_APP_API_URL_EDIT_EMPLOYEE_ENDPOINT}/${id}`, { 
+				method: "PUT", 
+				headers: { "Content-Type": "application/json", }, 
+				body: JSON.stringify(editedEmployee), 
+			}); 
+			alert( "After employee has been edited and save button been pressed, please press close. Remember, all fields must be filled correctly before saving. Do not leave empty fields or close modal without filling all fields first." ); 
+		} catch (error) { 
+			console.error("Error updating employee:", error); 
+		} 
 	};
 
 	const handleCloseModal = () => {
@@ -195,7 +194,7 @@ const Addform: React.FC = () => {
 			</div>
 			{showModal && employees.map((employee) => (
 				<div className="fixed w-full top-0 left-0 h-full  bg-black bg-opacity-50 flex justify-center items-center z-50">
-					<div className="bg-gradient-to-r from-sky-500 to-indigo-500 shadow-lg rounded border border-gray-200 border-opacity-20 p-3 min-w-[calc(100%-1100px)] min-h-[fit-content]">
+					<div className="bg-gradient-to-r from-sky-500 to-indigo-500 shadow-lg rounded border border-gray-200 border-opacity-20 p-8 min-w-[calc(100%-1100px)] min-h-[fit-content]">
 						<h2 className="“mt-0 lowercase tracking-widest text-3xl font-thin text-white opacity-75 select-none mb-2">Edit Employee</h2>
 						<input
 							type="text"
