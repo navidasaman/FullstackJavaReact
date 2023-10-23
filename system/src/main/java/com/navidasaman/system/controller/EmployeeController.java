@@ -44,6 +44,11 @@ public class EmployeeController {
 		return employeeService.retrieveEmployees();
 	}
 	
+    @GetMapping("/search/{name}")
+    public List<Employee> searchEmployees(@PathVariable String name) {
+        return employeeService.searchEmployees(name);
+    }
+	
 	@PutMapping("/put/{id}")
     public String editEmployee(@PathVariable Long id, @RequestBody Employee employeeData) {
         Employee employee = employeeService.getEmployeeId(id);
