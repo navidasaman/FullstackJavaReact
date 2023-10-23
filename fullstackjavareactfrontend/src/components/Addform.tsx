@@ -182,7 +182,15 @@ const Addform: React.FC = () => {
 				<h1 className="text-2xl font-bold text-center text-gray-800 pb-10">Employee Registry</h1>
 				{employees.map((employee) => (
 					<div key={employee.id} className='bg-slate-100 rounded-md p-5 mb-2'>
-						<h2 className='font-bold flex items-center justify-between'>• {employee.name} • <BsFillPencilFill onClick={() => handleEdit(employee.id)} className="text-green-600 font-extrabold cursor-pointer " />  <BsXLg onClick={() => handleDelete(employee.id)} className="text-red-600 font-extrabold cursor-pointer" /> </h2>
+						<h2 className='font-bold flex items-center justify-between'>
+							<span className="flex items-center">
+								• {employee.name} •
+							</span>
+							<div className="flex items-center">
+								<BsFillPencilFill onClick={() => handleEdit(employee.id)} className="text-green-600 font-extrabold cursor-pointer mr-7" title="Edit" />
+								<BsXLg onClick={() => handleDelete(employee.id)} className="text-red-600 font-extrabold cursor-pointer" title="Delete" />
+							</div>
+						</h2>
 						<p>ID: {employee.id}</p>
 						<p>Age: {employee.age}</p>
 						<p>Occupation: {employee.occupation}</p>
