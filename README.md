@@ -8,4 +8,4 @@
 - FrontEnd: React + TypeScript + TailwindCSS
 
 
-<img width="920" alt="image" src="https://github.com/navidasaman/FullstackJavaReact/assets/119083568/f993ab79-e84a-4610-be4e-9fd94fdee103">
+<img width="919" alt="image" src="https://github.com/navidasaman/FullstackJavaReact/assets/119083568/5146dcb5-3a2d-46d6-8f17-fff9e201e14b">
