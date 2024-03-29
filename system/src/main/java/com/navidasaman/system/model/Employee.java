@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import java.time.LocalDate;
 
 //indicating that it is an entity to be persisted.
 @Entity 
@@ -15,7 +15,7 @@ public class Employee {
 	    @GeneratedValue(strategy = GenerationType.IDENTITY) // to auto-increment value in db
 	    private Long id;
 	    private String name;
-	    private int age;
+	    private LocalDate age;
 	    private String occupation;
 	    private String department;
 	    private int salary;
@@ -35,7 +35,7 @@ public class Employee {
 			return name;
 		}
 
-		public int getAge() {
+		public LocalDate getAge() {
 			return age;
 		}
 
@@ -64,7 +64,7 @@ public class Employee {
 			this.name = name;
 		}
 
-		public void setAge(int age) {
+		public void setAge(LocalDate age) {
 			this.age = age;
 		}
 
