@@ -15,12 +15,12 @@ public interface EmployeeService {
 	public List<Employee> retrieveEmployees();
 	
 	// To edit employees
-    public Employee getEmployeeId(Long id);
+  public Employee getEmployeeId(Long id);
     
-    // To delete an employee by ID
-    public void deleteEmployee(Long id);
+  // To delete an employee by ID
+  public void deleteEmployee(Long id);
     
-    // To search for employees
+  // To search for employees
 	public List<Employee> searchEmployees(String name);
-
+	
 }

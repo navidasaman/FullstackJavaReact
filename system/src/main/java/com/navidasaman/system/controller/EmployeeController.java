@@ -1,5 +1,8 @@
 package com.navidasaman.system.controller;
 
+import com.navidasaman.system.exception.EmployeeErrorResponse;
+import com.navidasaman.system.exception.EmployeeNotFoundException;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +17,17 @@ import com.navidasaman.system.model.Employee;
 import com.navidasaman.system.service.EmployeeService;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired; // To be able to automaitaclly inject
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.ResponseEntity;
 
 // To be able to get the response body and controller at the same time the class will be handling HTTP requests returning as json-data
 @RestController
 
 // To create a path
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 
 // CORS
 @CrossOrigin
@@ -34,9 +40,9 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	
 	@PostMapping("/add")
-	public String add(@RequestBody Employee employee) {
+	public ResponseEntity<?>  add(@RequestBody Employee employee) {
 		employeeService.insertEmployee(employee);
-		return "Employee successfully added to database";
+        return ResponseEntity.ok().body(Map.of("message", "Employee successfully added to database"));
 	}
 	
 	@GetMapping("/get")
@@ -50,7 +56,7 @@ public class EmployeeController {
     }
 	
 	@PutMapping("/put/{id}")
-    public String editEmployee(@PathVariable Long id, @RequestBody Employee employeeData) {
+    public ResponseEntity<?> editEmployee(@PathVariable Long id, @RequestBody Employee employeeData) {
         Employee employee = employeeService.getEmployeeId(id);
 
         if (employee != null) {
@@ -64,16 +70,21 @@ public class EmployeeController {
 
             // Save the updated employee
             employeeService.insertEmployee(employee);
-
-            return "Employee data updated successfully";
+            // Return JSON when a user is succesfully updated
+            return ResponseEntity.ok().body(Map.of("message", "Employee data updated successfully"));
         } else {
-            return "Employee not found";
+            return ResponseEntity.badRequest().body(Map.of("message", "Employee not found"));
         }
     }
 
 	 @DeleteMapping("/delete/{id}")
-	    public String deleteEmployee(@PathVariable Long id) {
-	        employeeService.deleteEmployee(id);
-	        return "Employee successfully deleted";
+	 public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
+	        Employee employee = employeeService.getEmployeeId(id);
+	        if (employee != null) {
+	            employeeService.deleteEmployee(id);
+	            return ResponseEntity.ok().body(Map.of("message", "Employee successfully deleted"));
+	        } else {
+	            return ResponseEntity.badRequest().body(Map.of("message", "Employee not found"));
+	        }
 	    }
 }

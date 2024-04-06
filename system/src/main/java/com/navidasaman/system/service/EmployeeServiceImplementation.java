@@ -3,6 +3,7 @@ package com.navidasaman.system.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.navidasaman.system.exception.EmployeeNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.navidasaman.system.model.Employee;
@@ -45,6 +46,9 @@ public class EmployeeServiceImplementation implements EmployeeService {
 
 	@Override
 	public List<Employee> searchEmployees(String name) {
+        if(employeeRepository.findByName(name).isEmpty()) {
+            throw new EmployeeNotFoundException("Employee not found with name: " + name);
+        }
 		return employeeRepository.findByName(name);
 	}
 }
