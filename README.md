@@ -3,7 +3,7 @@
 
 - ***Backend:*** Java (utilizes HTTP requests with a MVC- & RESTful API architecture using Spring Boot, tested with Postman)
 
-- ***Database:*** MySQL
+- ***Database:*** MySQL (using Docker MySQL- Container + Image)
 
 - ***FrontEnd:*** React + TypeScript + TailwindCSS
 
