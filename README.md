@@ -1,7 +1,7 @@
 # FullstackJavaReact
 ### Employee management system
 
-- ***Backend:*** Java (utilizes HTTP requests with a RESTful API architecture using Spring Boot, tested with Postman)
+- ***Backend:*** Java (utilizes HTTP requests with a MVC- & RESTful API architecture using Spring Boot, tested with Postman)
 
 - ***Database:*** MySQL
 
