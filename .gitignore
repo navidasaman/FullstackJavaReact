@@ -1,3 +1,4 @@
 
 fullstackjavareactfrontend/.env
 system/src/main/resources/application.properties
+system/src/docker-compose.yaml
