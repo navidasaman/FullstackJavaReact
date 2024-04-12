@@ -3,7 +3,7 @@ import { Employee } from "../types/Employee";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const addEmployee = async (employee: Partial<Employee>) => {
-  const response = await fetch(`${API_URL}/employees/add`, {
+  const response = await fetch("sensitive data edited out", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(employee),
@@ -15,7 +15,7 @@ export const addEmployee = async (employee: Partial<Employee>) => {
 };
 
 export const fetchEmployees = async (): Promise<Employee[]> => {
-  const response = await fetch("sensitive data edited out for test", {
+  const response = await fetch("sensitive data edited out", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });

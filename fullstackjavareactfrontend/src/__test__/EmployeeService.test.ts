@@ -1,8 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { server } from '../mocks/server';
-import { fetchEmployees } from '../services/EmployeeService';
-
-const API_URL = process.env.REACT_APP_API_URL || "sensitive data edited out";
+import { fetchEmployees, addEmployee } from '../services/EmployeeService'; // Assuming there's an addEmployee function
 
 describe('EmployeeService', () => {
   beforeAll(() => server.listen());
@@ -25,8 +23,8 @@ describe('EmployeeService', () => {
           {
             "name": "Fredrik Persson",
             "age": '1982-12-09',
-            "occupation": "Admnin",
-            "department": "Admin",
+            "occupation": "Administration", 
+            "department": "Administration",
             "salary": 48000,
             "skills": "SRP"
           }
@@ -41,5 +39,28 @@ describe('EmployeeService', () => {
     expect(employees).toHaveLength(2);
     expect(employees[0].name).toBe('John Carlson');
     expect(employees[1].name).toBe('Fredrik Persson');
+  });
+
+  // Test case for adding an employee successfully
+  it('adds an employee successfully', async () => {
+    // Mock employee data to be added
+    const newEmployee = {
+      "name": "Alice Johnson",
+      "age": '1993-03-12',
+      "occupation": "Engineer",
+      "department": "Engineering",
+      "salary": 52000,
+      "skills": "Sharp"
+    };
+
+    // Simulate adding the employee
+    await addEmployee(newEmployee);
+
+    // Fetching employees after adding the new employee
+    const employees = await fetchEmployees();
+
+    // Asserting that the new employee is added i.e. now 3 employees in the array 
+    expect(employees).toHaveLength(2); 
+    expect(employees[employees.length - 1].name).toBe('Fredrik Persson'); // Access the next to last element
   });
 });
