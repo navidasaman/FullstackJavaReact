@@ -37,3 +37,23 @@ export const handlers = [
     });
   })
 ];
+
+// Handler for editing an employee
+http.put(`sensitive data edited out`, ({ request, params }) => {
+  const { id } = params; // Extract the employee ID from the request parameters
+  const editedEmployee = request.body; // Get the edited employee data from the request body
+
+  // Assuming the employee is found and updated successfully
+  const editedEmployeeFound = {
+    "id": id,
+    ...editedEmployee,
+  };
+
+  return new Response(JSON.stringify(editedEmployeeFound), {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+})
+

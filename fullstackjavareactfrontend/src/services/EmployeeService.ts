@@ -37,13 +37,13 @@ export const deleteEmployee = async (id: number) => {
 };
 
 export const editEmployee = async (id: number, employee: Partial<Employee>) => {
-  const response = await fetch(`${API_URL}/employees/put/${id}`, {
+  const response = await fetch(`sensitive data edited out/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(employee),
   });
 
-  console.log(response.status);
+  // console.log(response.status);
   if (!response.ok) {
     throw new Error(`Error editing employee with ID ${id}`);
   }
