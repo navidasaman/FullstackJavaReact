@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { server } from '../mocks/server';
-import { fetchEmployees, addEmployee, editEmployee } from '../services/EmployeeService'; 
+import { fetchEmployees, addEmployee, editEmployee, searchEmployee } from '../services/EmployeeService'; 
 import { Employee } from "../types/Employee";
 
 describe('EmployeeService', () => {
@@ -11,7 +11,7 @@ describe('EmployeeService', () => {
   // Test case for fetching employees successfully
   it('fetches employees successfully', async () => {
     server.use(
-      http.get("sensitive data edited out", () => {
+      http.get("edited out sensitive data", () => {
         return HttpResponse.json([
           {
             "name": "John Carlson",
@@ -94,4 +94,19 @@ describe('EmployeeService', () => {
     expect(editedEmployeeFound.age).toBe('1993-03-12'); // Check if the age is updated
     // Add more assertions as needed for other fields
   });
+
+   // Test case for searching for an employee by name
+   it('searches for an employee by name', async () => {
+    // Mock employee name to search
+    const searchName = 'Alice Johnson';
+
+    // Simulate searching for the employee
+    const foundEmployees = await searchEmployee(searchName);
+
+    // Asserting that the employee is found
+    expect(foundEmployees).toHaveLength(1);
+    expect(foundEmployees[0].name).toBe(searchName);
+    // Add more assertions as needed for other fields
+  });
+
 

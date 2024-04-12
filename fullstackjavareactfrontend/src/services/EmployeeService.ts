@@ -3,7 +3,7 @@ import { Employee } from "../types/Employee";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const addEmployee = async (employee: Partial<Employee>) => {
-  const response = await fetch("sensitive data edited out", {
+  const response = await fetch("edited out sensitive data", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(employee),
@@ -15,7 +15,7 @@ export const addEmployee = async (employee: Partial<Employee>) => {
 };
 
 export const fetchEmployees = async (): Promise<Employee[]> => {
-  const response = await fetch("sensitive data edited out", {
+  const response = await fetch("edited out sensitive data", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
@@ -27,7 +27,7 @@ export const fetchEmployees = async (): Promise<Employee[]> => {
 };
 
 export const deleteEmployee = async (id: number) => {
-  const response = await fetch(`${API_URL}/employees/delete/${id}`, {
+  const response = await fetch(`edited out sensitive data/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
@@ -37,13 +37,13 @@ export const deleteEmployee = async (id: number) => {
 };
 
 export const editEmployee = async (id: number, employee: Partial<Employee>) => {
-  const response = await fetch(`sensitive data edited out/${id}`, {
+  const response = await fetch(`edited out sensitive data/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(employee),
   });
 
-  // console.log(response.status);
+  //console.log(response.status);
   if (!response.ok) {
     throw new Error(`Error editing employee with ID ${id}`);
   }
@@ -57,7 +57,7 @@ export const searchEmployee = async (
     throw new Error("Search term is required.");
   }
   const response = await fetch(
-    `${API_URL}/employees/search/${encodeURIComponent(searchTerm)}`,
+    `edited out sensitive data/${encodeURIComponent(searchTerm)}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
@@ -66,5 +66,7 @@ export const searchEmployee = async (
   if (!response.ok) {
     throw new Error("Failed to search employees.");
   }
-  return response.json();
-};
+  const responseData = await response.json(); // Parse the response body as JSON
+  console.log(responseData); // Log the parsed JSON data
+  return responseData; // Return the parsed JSON data};
+}
