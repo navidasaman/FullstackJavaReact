@@ -3,7 +3,7 @@ import { Employee } from "../types/Employee";
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const addEmployee = async (employee: Partial<Employee>) => {
-  const response = await fetch("edited out sensitive data", {
+  const response = await fetch("edited out sensitive datas/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(employee),
@@ -15,14 +15,14 @@ export const addEmployee = async (employee: Partial<Employee>) => {
 };
 
 export const fetchEmployees = async (): Promise<Employee[]> => {
-  const response = await fetch("edited out sensitive data", {
+  const response = await fetch("edited out sensitive data/get", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
   if (!response.ok) {
     throw new Error("Failed to fetch employees.");
   }
-  const result = await response.json(); 
+  const result = await response.json();
   return result;
 };
 
@@ -33,6 +33,8 @@ export const deleteEmployee = async (id: number) => {
   });
   if (!response.ok) {
     throw new Error(`Error deleting employee with ID ${id}`);
+  } else {
+    console.log(`Successfully deleted employee with ID ${id}`)
   }
 };
 
@@ -66,7 +68,5 @@ export const searchEmployee = async (
   if (!response.ok) {
     throw new Error("Failed to search employees.");
   }
-  const responseData = await response.json(); // Parse the response body as JSON
-  console.log(responseData); // Log the parsed JSON data
-  return responseData; // Return the parsed JSON data};
+  return response.json();
 }

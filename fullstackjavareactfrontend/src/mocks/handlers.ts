@@ -1,4 +1,4 @@
-import { http, HttpResponse, ResponseResolver  } from 'msw';
+import { http, HttpResponse, ResponseResolver } from 'msw';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -39,7 +39,7 @@ export const handlers = [
 ];
 
 // Handler for editing an employee
-http.put(`edited out sensitive data/:id`, ({ request, params }) => {
+http.put(`edited out sensitive data:id`, ({ request, params }) => {
   const { id } = params; // Extract the employee ID from the request parameters
   const editedEmployee = request.body; // Get the edited employee data from the request body
 
@@ -57,18 +57,18 @@ http.put(`edited out sensitive data/:id`, ({ request, params }) => {
   });
 })
 
-http.get(`edited out sensitive data/:id`, ({ request, params }) => {
+http.get(`edited out sensitive data/:id`, ({ params }) => {
   const { name } = params;
-  // Mocked employee data (assuming we have a single employee for simplicity)
+  // Mocked employee data 
   const employees = [
     {
-      id: 3,
-      name: "Alice Johnson",
-      age: '1993-03-12',
-      occupation: "Engineer",
-      department: "Engineering",
-      salary: 52000,
-      skills: "Sharp"
+      id: 2,
+      name: "Fredrik Persson",
+      age: '1982-12-09',
+      occupation: "Administration",
+      department: "Administration",
+      salary: 48000,
+      skills: "SRP"
     }
   ];
 
@@ -81,6 +81,22 @@ http.get(`edited out sensitive data/:id`, ({ request, params }) => {
       'Content-Type': 'application/json',
     },
   });
-
-
 })
+
+// Handler for deleting an employee
+http.delete(`edited out sensitive data:id`, ({ params }) => {
+  const { id } = params; // Extract the employee ID from the request parameters
+
+
+  // Assuming the employee is found and deleted successfully
+  const deletionResponse = {
+    message: `Employee with ID ${id} has been deleted.`,
+  };
+
+  return new Response(JSON.stringify(deletionResponse), {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+});
