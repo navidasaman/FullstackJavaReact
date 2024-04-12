@@ -15,7 +15,7 @@ export const addEmployee = async (employee: Partial<Employee>) => {
 };
 
 export const fetchEmployees = async (): Promise<Employee[]> => {
-  const response = await fetch(`${API_URL}/employees/get`, {
+  const response = await fetch("sensitive data edited out for test", {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
