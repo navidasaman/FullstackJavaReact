@@ -1,9 +1,10 @@
 import { Employee } from "../types/Employee";
 
+// NOTE: for the tests (in __test__/EmployeeService.test.ts to run successfully the URI must be identical (i.e. written out) as it didn't recognize the environment variable
 const API_URL = process.env.REACT_APP_API_URL;
 
 export const addEmployee = async (employee: Partial<Employee>) => {
-  const response = await fetch("edited out sensitive datas/add", {
+  const response = await fetch(`${API_URL}/employees/add`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(employee),
@@ -15,7 +16,7 @@ export const addEmployee = async (employee: Partial<Employee>) => {
 };
 
 export const fetchEmployees = async (): Promise<Employee[]> => {
-  const response = await fetch("edited out sensitive data/get", {
+  const response = await fetch(`${API_URL}/employees/get`, {
     method: "GET",
     headers: { "Content-Type": "application/json" },
   });
@@ -27,7 +28,7 @@ export const fetchEmployees = async (): Promise<Employee[]> => {
 };
 
 export const deleteEmployee = async (id: number) => {
-  const response = await fetch(`edited out sensitive data/${id}`, {
+  const response = await fetch(`${API_URL}/employees/delete/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
@@ -39,7 +40,7 @@ export const deleteEmployee = async (id: number) => {
 };
 
 export const editEmployee = async (id: number, employee: Partial<Employee>) => {
-  const response = await fetch(`edited out sensitive data/${id}`, {
+  const response = await fetch(`${API_URL}/employees/put/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(employee),
@@ -59,7 +60,7 @@ export const searchEmployee = async (
     throw new Error("Search term is required.");
   }
   const response = await fetch(
-    `edited out sensitive data/${encodeURIComponent(searchTerm)}`,
+    `${API_URL}/employees/search/${encodeURIComponent(searchTerm)}`,
     {
       method: "GET",
       headers: { "Content-Type": "application/json" },
