@@ -25,8 +25,30 @@ public class Employee {
 	    public Employee() {
 	    	
 	    }
-	    
-	    // Getters
+
+			public Employee(Long id, String name, LocalDate age, String occupation, String department, int salary, String skills) {this.name = name;
+				this.id = id;
+				this.age = age;
+				this.occupation = occupation;
+				this.department = department;
+				this.salary = salary;
+				this.skills = skills;
+				}
+
+			@Override
+			public String toString() {
+				return "Employee{" +
+						"id=" + id +
+						", name='" + name + '\'' +
+						", age=" + age +
+						", occupation='" + occupation + '\'' +
+						", department='" + department + '\'' +
+						", salary=" + salary +
+						", skills='" + skills + '\'' +
+						'}';
+			}
+
+		// Getters
 		public Long getId() {
 			return id;
 		}
