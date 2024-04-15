@@ -12,6 +12,7 @@ import com.navidasaman.system.repository.EmployeeRepository;
 // Class EmployeeServiceImplementation implements the interface named EmployeeService and annoted with that it is a Service
 @Service 
 public class EmployeeServiceImplementation implements EmployeeService {
+    // will inject the employeerepository into our service class
     private final EmployeeRepository employeeRepository;
 
     public EmployeeServiceImplementation(EmployeeRepository employeeRepository) {
@@ -44,11 +45,30 @@ public class EmployeeServiceImplementation implements EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-	@Override
-	public List<Employee> searchEmployees(String name) {
+    @Override
+    public List<Employee> searchEmployees(String name) {
         if(employeeRepository.findByName(name).isEmpty()) {
             throw new EmployeeNotFoundException("Employee not found with name: " + name);
         }
-		return employeeRepository.findByName(name);
-	}
+        return employeeRepository.findByName(name);
+    }
+
+    // Method to edit an employee's details in the database
+    @Override
+    public Employee editEmployee(Long id, Employee updatedEmployeeData) {
+        // Retrieve the employee from the database
+        Employee employeeToUpdate = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with ID: " + id));
+
+        // Update the employee's details
+        employeeToUpdate.setName(updatedEmployeeData.getName());
+        employeeToUpdate.setAge(updatedEmployeeData.getAge());
+        employeeToUpdate.setOccupation(updatedEmployeeData.getOccupation());
+        employeeToUpdate.setDepartment(updatedEmployeeData.getDepartment());
+        employeeToUpdate.setSalary(updatedEmployeeData.getSalary());
+        employeeToUpdate.setSkills(updatedEmployeeData.getSkills());
+
+        // Save the updated employee to the database
+        return employeeRepository.save(employeeToUpdate);
+    }
 }

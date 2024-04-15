@@ -14,7 +14,7 @@ public interface EmployeeService {
 	// To list all employees from list
 	public List<Employee> retrieveEmployees();
 	
-	// To edit employees
+	// To get employees by ID
   public Employee getEmployeeId(Long id);
     
   // To delete an employee by ID
@@ -22,5 +22,7 @@ public interface EmployeeService {
     
   // To search for employees
 	public List<Employee> searchEmployees(String name);
-	
+
+	// To edit an employee's details in the database
+	public Employee editEmployee(Long id, Employee updatedEmployeeData);
 }

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import com.navidasaman.system.model.Employee;
 import com.navidasaman.system.repository.EmployeeRepository;
@@ -75,5 +76,40 @@ public class EmployeeServiceTest {
         
         // Print out the employee
         System.out.println(savedEmployee);
+    }
+
+    // Edit employee test
+    @Test
+    public void testEditEmployee() {
+        // Create a mock employee
+        Employee originalEmployee = new Employee(4L, "Unedited Employee", LocalDate.of(1990, 1, 1), "Occupation", "Department", 50000, "Skills");
+
+        // Print out the original unedited employee details
+        System.out.println("Unedited employee data:");
+        System.out.println(originalEmployee + "\n");
+
+        // Mock the behavior of the repository when finding an employee by ID
+        when(employeeRepository.findById(anyLong())).thenReturn(Optional.of(originalEmployee));
+
+        // Define the updated details for the employee
+        Employee updatedEmployeeData = new Employee(4L, "Edited Employee", LocalDate.of(1993, 6, 12), "Another occupation", "Another Department", 70000, "Other Skills");
+
+        // Mock the behavior of the repository when saving the updated employee
+        when(employeeRepository.save(any(Employee.class))).thenReturn(updatedEmployeeData);
+
+        // Call the method under test to edit the employee
+        Employee editedEmployee = employeeService.editEmployee(4L, updatedEmployeeData);
+
+        // Verify that the employee was edited correctly
+        assertEquals("Edited Employee", editedEmployee.getName());
+        assertEquals(LocalDate.of(1993, 6, 12), editedEmployee.getAge());
+        assertEquals("Another occupation", editedEmployee.getOccupation());
+        assertEquals("Another Department", editedEmployee.getDepartment());
+        assertEquals(70000, editedEmployee.getSalary());
+        assertEquals("Other Skills", editedEmployee.getSkills());
+
+        // Print out the edited employee data
+        System.out.println("Edited Employee Data:");
+        System.out.println(editedEmployee);
     }
 }
