@@ -29,6 +29,7 @@ public class EmployeeServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    // Retrieve employees test
     @Test
     public void testGetAllEmployees() {
         LocalDate dateOfBirth = LocalDate.of(1990, 9, 22);
@@ -53,5 +54,26 @@ public class EmployeeServiceTest {
         for (Employee employee : result) {
             System.out.println(employee);
         }
+    }
+
+    // Add employee test
+    @Test
+    public void testAddEmployee() {
+        LocalDate DOB = LocalDate.of(1993, 5, 4);
+
+        // Create a mock employee
+        Employee newEmployee = new Employee(3L, "Pablo", DOB, "UX-Designer", "IT", 50000, "Figma");
+
+        // Mock the behavior of the repository when saving the employee
+        when(employeeRepository.save(any(Employee.class))).thenReturn(newEmployee);
+
+        // Call the method under test to add the employee
+        Employee savedEmployee = employeeService.insertEmployee(newEmployee);
+
+        // Verify that the employee was added correctly
+        assertEquals("Pablo", savedEmployee.getName());
+        
+        // Print out the employee
+        System.out.println(savedEmployee);
     }
 }
