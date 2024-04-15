@@ -112,4 +112,34 @@ public class EmployeeServiceTest {
         System.out.println("Edited Employee Data:");
         System.out.println(editedEmployee);
     }
+
+    // Search employee test
+    @Test
+    public void testSearchEmployees() {
+        // Mock employee data
+        LocalDate dateOfBirth = LocalDate.of(1990, 9, 22);
+        Employee employee1 = new Employee(1L, "John Doe", dateOfBirth, "Engineer", "Engineering", 45000, "Problem solving");
+        Employee employee2 = new Employee(2L, "Jane Smith", dateOfBirth, "Developer", "IT", 40000, "Java");
+
+        // Mock the behavior of the repository when searching for employees
+        when(employeeRepository.findByName("John Doe")).thenReturn(Arrays.asList(employee1));
+        when(employeeRepository.findByName("Jane Smith")).thenReturn(Arrays.asList(employee2));
+
+        // Call the method under test to search for employees
+        List<Employee> searchResults1 = employeeService.searchEmployees("John Doe");
+        List<Employee> searchResults2 = employeeService.searchEmployees("Jane Smith");
+
+        // Verify the search results
+        assertEquals(1, searchResults1.size());
+        assertEquals("John Doe", searchResults1.get(0).getName());
+
+        assertEquals(1, searchResults2.size());
+        assertEquals("Jane Smith", searchResults2.get(0).getName());
+
+        // Print out the search results
+        System.out.println("Search results for John Doe: ");
+        System.out.println(searchResults1 + "\n");
+        System.out.println("Search results for Jane Smith: ");
+        System.out.println(searchResults2);
+    }
 }
