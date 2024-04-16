@@ -2,6 +2,7 @@ package com.navidasaman.system.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertFalse;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -141,5 +142,22 @@ public class EmployeeServiceTest {
         System.out.println(searchResults1 + "\n");
         System.out.println("Search results for Jane Smith: ");
         System.out.println(searchResults2);
+    }
+
+    // Delete employee test
+    @Test
+    public void testDeleteEmployee() {
+        // Create a mock employee
+        LocalDate dateOfBirth = LocalDate.of(1990, 9, 22);
+        Employee employeeToDelete = new Employee(1L, "John Doe", dateOfBirth, "Engineer", "Engineering", 45000, "Problem solving");
+
+        // Mock the behavior of the repository when finding an employee by ID
+        when(employeeRepository.findById(1L)).thenReturn(Optional.of(employeeToDelete));
+
+        // Call the method under test to delete the employee
+        employeeService.deleteEmployee(1L);
+
+        // Verify that the employee was deleted (If test runs smoothly the employee has been deleted)
+        verify(employeeRepository, times(1)).deleteById(1L);
     }
 }
